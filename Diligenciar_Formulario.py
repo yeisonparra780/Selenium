@@ -9,25 +9,19 @@ from dotenv import load_dotenv
 load_dotenv()
 sys.path.append(os.getenv('RUTA_PROYECTO'))
 import controladores.transacciones_oracle as to
-# Configura el controlador de Chrome
-# driver_path = 'path/to/chromedriver'
+
 
 
 def llenar_formulario(codigo_respuesta,contrato,paquete,devolver_incapacidad,motivo_devolucion,lote):
-    # Abre el formulario
+    
     driver = webdriver.Chrome()
-    url = 'https://forms.office.com/r/C0WUcKMj67'
+    url = 'https://forms.offic/r/C0WUc7'
     driver.get(url)
     current_url = driver.current_url
     print("URL actual:", current_url)
-    # Espera a que la página se cargue completamente
-
-    # Encuentra y llena los campos del formulario
-    # Ajusta los selectores según sea necesario
+   
     try:
-        # wait = WebDriverWait(driver, 10)
-        # empezar_ahora = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'css-178')))
-        # Espera un máximo de 10 segundos a que aparezca el elemento
+       
         time.sleep(10)
 
         try:
@@ -36,6 +30,8 @@ def llenar_formulario(codigo_respuesta,contrato,paquete,devolver_incapacidad,mot
             driver.execute_script('document.querySelector(".css-126").click();')
         time.sleep(5)
         driver.find_element(By.XPATH,"/html/body/div/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/div[2]/div[1]/div[2]/div/span/input").send_keys(codigo_respuesta)
+        
+        
         driver.find_element(By.XPATH,"/html/body/div/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/div[2]/div[2]/div[2]/div/span/input").send_keys(contrato)
         driver.find_element(By.XPATH,"/html/body/div/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/div[2]/div[3]/div[2]/div/span/input").send_keys(lote)
         driver.find_element(By.XPATH,"/html/body/div/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/div[2]/div[4]/div[2]/div/span/input").send_keys(paquete)
@@ -54,9 +50,8 @@ def llenar_formulario(codigo_respuesta,contrato,paquete,devolver_incapacidad,mot
                 driver.find_element(By.XPATH,"/html/body/div[2]/div/div[5]/span[2]/span").click()
         else:
             driver.find_element(By.XPATH,"/html/body/div/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/div[2]/div[5]/div[2]/div/div/div[2]/div/label/span[1]").click()
-        # Añade más campos según sea necesario
-
-        # Envía el formulario
+      
+      
         submit_button = driver.find_element(By.XPATH, '/html/body/div/div/div[1]/div/div/div/div/div[3]/div/div/div[2]/div[3]/div/button')
         submit_button.click()
 
@@ -65,7 +60,7 @@ def llenar_formulario(codigo_respuesta,contrato,paquete,devolver_incapacidad,mot
     except Exception as e:
         print(f'Error al llenar el formulario: {e}')
 
-    # Cierra el navegador
+
     time.sleep(2)
     driver.quit()
     
@@ -87,7 +82,7 @@ def main():
                 motivo_devolucion = incapacidad[4]
                 print(incapacidad)
                 llenar_formulario(codigo_respuesta,contrato,paquete,devolver_incapacidad,motivo_devolucion,lote)
-                # to.actualizar_estado_lote(lot_id, 'completado')
+               
     else:
         print('No hay lotes pendientes')
 
